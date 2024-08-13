@@ -5,7 +5,7 @@ const StepCard = ({ children }) => {
     <View
       style={{
         width: '100%',
-        maxWidth: 400,
+        maxWidth: 500,
         padding: 20,
         borderRadius: 10,
         boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
