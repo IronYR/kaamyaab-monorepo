@@ -18,7 +18,7 @@ const Steps = () => {
     // more fields...
   })
   // Calculate progress based on the current step
-  const [progress, setProgress] = useState(0)
+  const [progress, setProgress] = useState(20)
   // const progress = 0.5 * 100 // Assuming 4 steps total (0-3)
   const nextStep = () => {
     setStep(step + 1)
@@ -28,16 +28,6 @@ const Steps = () => {
     setStep(step - 1)
     setProgress(progress - 0.33 * progress)
   }
-  return (
-    <View>
-      <ProgressComponent progress={progress} />
-      {renderStep()}
-      <XStack gap="$5">
-        {step > 0 && <Button onPress={prevStep}>Previous</Button>}
-        {step < 3 && <Button onPress={nextStep}>Next</Button>}
-      </XStack>
-    </View>
-  )
 
   function renderStep() {
     switch (step) {
@@ -51,6 +41,16 @@ const Steps = () => {
       //   return <Review formData={formData} />
     }
   }
+  return (
+    <View>
+      <ProgressComponent progress={progress} />
+      {renderStep()}
+      <XStack gap="$5" justifyContent="space-between">
+        {step > 0 && <Button onPress={prevStep}>Previous</Button>}
+        {step < 3 && <Button onPress={nextStep}>Next</Button>}
+      </XStack>
+    </View>
+  )
 }
 
 export default Steps
