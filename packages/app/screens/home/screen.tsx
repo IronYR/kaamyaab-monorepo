@@ -21,7 +21,9 @@ export function HomeScreen({ pagesMode = false }: { pagesMode?: boolean }) {
   const linkProps = useLink({
     href: `${linkTarget}/nate`,
   })
-
+  const onboardLink = useLink({
+    href: '/onboarding/student',
+  })
   return (
     <YStack f={1} jc="center" ai="center" gap="$8" p="$4" bg="$background">
       <XStack
@@ -56,7 +58,7 @@ export function HomeScreen({ pagesMode = false }: { pagesMode?: boolean }) {
       </YStack>
 
       <Button {...linkProps}>Link to user</Button>
-
+      <Button {...onboardLink}>Link to onboarding</Button>
       <SheetDemo />
     </YStack>
   )
