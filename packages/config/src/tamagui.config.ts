@@ -8,7 +8,14 @@ import { animations } from '@my/ui/src/animations'
 
 const headingFont = createInterFont({
   size: {
-    6: 15,
+    // Responsive font sizes
+    6: {
+      xs: 14, // Extra small screens (mobile)
+      sm: 16, // Small screens (larger mobile or small tablet)
+      md: 18, // Medium screens (tablet or small desktop)
+      lg: 20, // Large screens (desktop)
+      xl: 22, // Extra large screens
+    },
   },
   transform: {
     6: 'uppercase',
@@ -40,6 +47,16 @@ const headingFont = createInterFont({
 
 const bodyFont = createInterFont(
   {
+    size: {
+      // Responsive font sizes
+      6: {
+        xs: 12, // Extra small screens (mobile)
+        sm: 14, // Small screens
+        md: 16, // Medium screens
+        lg: 18, // Large screens
+        xl: 20, // Extra large screens
+      },
+    },
     face: {
       700: { normal: 'InterBold' },
     },
@@ -56,9 +73,6 @@ export const config = createTamagui({
   shouldAddPrefersColorThemes: true,
   themeClassNameOnRoot: true,
 
-  // highly recommended to turn this on if you are using shorthands
-  // to avoid having multiple valid style keys that do the same thing
-  // we leave it off by default because it can be confusing as you onboard.
   onlyAllowShorthands: false,
   shorthands,
 

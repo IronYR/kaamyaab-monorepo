@@ -27,6 +27,10 @@ export function HomeScreen({ pagesMode = false }: { pagesMode?: boolean }) {
   const dashboardLink = useLink({
     href: '/dashboard/employers',
   })
+
+  const jobLink = useLink({
+    href: '/dashboard/jobs',
+  })
   return (
     <YStack f={1} jc="center" ai="center" gap="$8" p="$4" bg="$background">
       <XStack
@@ -49,6 +53,7 @@ export function HomeScreen({ pagesMode = false }: { pagesMode?: boolean }) {
       <Button {...linkProps}>Link to user</Button>
       <Button {...onboardLink}>Onboard</Button>
       <Button {...dashboardLink}>Dashboard</Button>
+      <Button {...jobLink}>Job Postings</Button>
     </YStack>
   )
 }
