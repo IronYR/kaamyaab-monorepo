@@ -40,7 +40,9 @@ function RootLayoutNav() {
   return (
     <Provider>
       <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <Stack />
+        <Stack>
+          <Stack.Screen name="(tabs)" />
+        </Stack>
         <NativeToast />
       </ThemeProvider>
     </Provider>
