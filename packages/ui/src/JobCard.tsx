@@ -21,8 +21,8 @@ export default function JobCard({ title, company, location, matchScore, salary, 
         alignItems="flex-start"
         justifyContent={'flex-start'}
         borderRadius={'$4'}
-        borderWidth={1}
-        borderColor={'$accentBackground'}
+        // borderWidth={1}
+        // borderColor={'$accentBackground'}
         // background={'$accentBackground'}
       >
         <YStack flex={1} justifyContent="flex-start" alignItems="center" gap="$4">
