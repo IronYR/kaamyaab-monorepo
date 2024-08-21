@@ -23,7 +23,7 @@ const posts = [
     imageSrc: '',
   },
   {
-    id: 2,
+    id: 3,
     title: 'Job 2',
     company: 'Company B',
     location: 'Location B',
@@ -32,7 +32,7 @@ const posts = [
     imageSrc: '',
   },
   {
-    id: 2,
+    id: 4,
     title: 'Job 2',
     company: 'Company B',
     location: 'Location B',
@@ -41,7 +41,7 @@ const posts = [
     imageSrc: '',
   },
   {
-    id: 2,
+    id: 5,
     title: 'Job 2',
     company: 'Company B',
     location: 'Location B',
@@ -50,7 +50,7 @@ const posts = [
     imageSrc: '',
   },
   {
-    id: 2,
+    id: 6,
     title: 'Job 2',
     company: 'Company B',
     location: 'Location B',
