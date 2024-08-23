@@ -27,12 +27,6 @@ export function HomeScreen({ pagesMode = false }: { pagesMode?: boolean }) {
   const dashboardLink = useLink({
     href: '/dashboard/employers',
   })
-  const nativeJobLink = useLink({
-    href: '/jobs',
-  })
-  const nativeDashboardLink = useLink({
-    href: '/employers',
-  })
   const jobLink = useLink({
     href: '/dashboard/jobs',
   })
@@ -59,8 +53,6 @@ export function HomeScreen({ pagesMode = false }: { pagesMode?: boolean }) {
       <Button {...onboardLink}>Onboard</Button>
       <Button {...dashboardLink}>Dashboard</Button>
       <Button {...jobLink}>Job Postings</Button>
-      <Button {...nativeDashboardLink}>Native Dashboard</Button>
-      <Button {...nativeJobLink}>NativeJob Postings</Button>
     </YStack>
   )
 }
