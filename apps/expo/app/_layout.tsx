@@ -40,7 +40,9 @@ function RootLayoutNav() {
   return (
     <Provider>
       <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <Stack />
+        <Stack>
+          <Stack.Screen name="dashboard" options={{ headerShown: true }} />
+        </Stack>
         <NativeToast />
       </ThemeProvider>
     </Provider>
