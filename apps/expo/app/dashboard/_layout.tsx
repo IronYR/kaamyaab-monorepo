@@ -1,10 +1,4 @@
-import { Tabs } from 'expo-router'
-
-export default function TabLayout() {
-  return (
-    <Tabs>
-      <Tabs.Screen name="employers" />
-      <Tabs.Screen name="jobs" />
-    </Tabs>
-  )
+import DashboardLayout from '@my/ui/src/DashboardLayout'
+export default function Layout({ children }) {
+  return <DashboardLayout>{children}</DashboardLayout>
 }
