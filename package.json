@@ -30,12 +30,18 @@
   "dependencies": {
     "@babel/runtime": "^7.24.6",
     "@manypkg/cli": "^0.21.4",
+    "bcryptjs": "^2.4.3",
     "check-dependency-version-consistency": "^4.1.0",
     "eslint": "^9.3.0",
+    "mongoose": "^8.5.3",
+    "next-auth": "^4.24.7",
     "node-gyp": "^10.1.0",
     "prettier": "^3.2.5",
     "turbo": "^1.13.3",
     "typescript": "^5.4.5"
   },
-  "packageManager": "yarn@3.5.1"
+  "packageManager": "yarn@3.5.1",
+  "devDependencies": {
+    "@types/bcryptjs": "^2"
+  }
 }
