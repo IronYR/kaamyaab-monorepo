@@ -3,7 +3,7 @@ import { YStack } from 'tamagui'
 
 export const NativeToast = () => {
   const currentToast = useToastState()
-  const tes = 'commit'
+
   if (!currentToast || currentToast.isHandledNatively) {
     return null
   }
