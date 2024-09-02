@@ -1,17 +1,4 @@
-import {
-  Anchor,
-  Button,
-  H1,
-  Paragraph,
-  Separator,
-  Sheet,
-  useToastController,
-  SwitchThemeButton,
-  SwitchRouterButton,
-  XStack,
-  YStack,
-} from '@my/ui'
-import { ChevronDown, ChevronUp, X } from '@tamagui/lucide-icons'
+import { Button, SwitchThemeButton, SwitchRouterButton, XStack, YStack } from '@my/ui'
 import { useState } from 'react'
 import { Platform } from 'react-native'
 import { useLink } from 'solito/navigation'
@@ -25,11 +12,15 @@ export function HomeScreen({ pagesMode = false }: { pagesMode?: boolean }) {
     href: '/onboarding/student',
   })
   const dashboardLink = useLink({
-    href: '/dashboard/employers',
+    href: '/dashboard/university/home',
   })
   const jobLink = useLink({
-    href: '/dashboard/jobs',
+    href: '/dashboard/student/jobs',
   })
+  const eventsLink = useLink({
+    href: '/dashboard/recruiter/events',
+  })
+
   return (
     <YStack f={1} jc="center" ai="center" gap="$8" p="$4" bg="$background">
       <XStack
@@ -51,8 +42,9 @@ export function HomeScreen({ pagesMode = false }: { pagesMode?: boolean }) {
 
       <Button {...linkProps}>Link to user</Button>
       <Button {...onboardLink}>Onboard</Button>
-      <Button {...dashboardLink}>Dashboard</Button>
-      <Button {...jobLink}>Job Postings</Button>
+      <Button {...dashboardLink}>University Dashboard</Button>
+      <Button {...jobLink}>Student Job Postings</Button>
+      <Button {...eventsLink}>Recruiter Events</Button>
     </YStack>
   )
 }

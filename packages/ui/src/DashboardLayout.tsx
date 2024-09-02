@@ -1,62 +1,29 @@
 'use client'
-import { useWindowDimensions } from 'react-native'
-import { View, Button } from 'tamagui'
-import { useRouter } from 'solito/navigation'
+import React from 'react'
+import { styled, YStack } from 'tamagui'
+import Sidebar from '@my/ui/src/Sidebar'
+import { usePathname, useParams } from 'next/navigation'
+import { getSidebarItemsForUserType } from '@my/ui/src/utils/sidebarItems'
 
-const DashboardLayout = ({ children }) => {
-  const { width } = useWindowDimensions()
-  const isMobile = width <= 768 // Adjust the breakpoint as needed
-  const router = useRouter()
+const MainContainer = styled(YStack, {
+  marginLeft: '15%',
+  padding: '$4',
+  backgroundColor: '$background',
+  minHeight: '100%',
+})
 
-  const navigationTabs = [
-    { name: 'Feed', route: '/dashboard/feed' },
-    { name: 'Jobs', route: '/dashboard/jobs' },
-    { name: 'Employers', route: '/dashboard/employers' },
-    // Add more tabs as needed
-  ]
+const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
+  const pathname = usePathname()
+  const params = useParams()
+  const userType = params.userType as string
+
+  const sidebarItems = getSidebarItemsForUserType(userType)
 
   return (
-    <View style={{ flexDirection: isMobile ? 'column' : 'row', height: '100vh' }}>
-      {!isMobile && (
-        <View
-          style={{
-            width: '15%',
-            padding: 16,
-          }}
-        >
-          {navigationTabs.map((tab) => (
-            <View key={tab.name} style={{ marginBottom: 16 }}>
-              <Button
-                onPress={() => router.push(tab.route)}
-                style={{ backgroundColor: 'transparent', textAlign: 'left' }}
-              >
-                {tab.name}
-              </Button>
-            </View>
-          ))}
-        </View>
-      )}
-      <View style={{ width: isMobile ? '100%' : '85%', padding: 16 }}>{children}</View>
-
-      {isMobile && (
-        <View
-          style={{
-            width: '100%',
-            position: 'fixed',
-            bottom: 0,
-            padding: 8,
-            flexDirection: 'row',
-            justifyContent: 'space-around',
-          }}
-        >
-          {navigationTabs.map((tab) => (
-            <Button key={tab.name} onPress={() => router.push(tab.route)}>
-              {tab.name}
-            </Button>
-          ))}
-        </View>
-      )}
-    </View>
+    <YStack flexDirection="row" minHeight="100vh">
+      <Sidebar currentPath={pathname} items={sidebarItems} />
+      <MainContainer flex={1}>{children}</MainContainer>
+    </YStack>
   )
 }
 
