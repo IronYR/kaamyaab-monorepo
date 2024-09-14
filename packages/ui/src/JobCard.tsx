@@ -1,47 +1,44 @@
 'use client'
-import { YStack, XStack, Image, Avatar, Separator, Text, H1, H2, H4, H5, Card, H6 } from '@my/ui'
+import { YStack, XStack, Avatar, Text, H3, H5, Card, Paragraph, Button } from '@my/ui'
+import { Link } from 'solito/link'
 
-export default function JobCard({ title, company, location, matchScore, salary, imageSrc
- }) {
+export default function JobCard({ id, title, company, location, matchScore, salary, imageSrc }) {
   return (
     <Card
       animation="medium"
-      // // size="$4"
-      // // width={250}
-      // // height={300}
-      // scale={0.9}
-      hoverStyle={{ scale: 0.925 }}
-      width={375}
-      $xs={{ width: 300,minHeight:150 }}
-      flexWrap="wrap"
-      background="Highlight"
+      hoverStyle={{ scale: 1.02 }}
+      width={360}
+      $xs={{ width: 300, minHeight: 150 }}
+      padding="$4"
+      backgroundColor="$background"
+      borderRadius="$4"
     >
-      <XStack
-        flex={1}
-        alignItems="flex-start"
-        justifyContent={'flex-start'}
-        borderRadius={'$4'}
-        // borderWidth={1}
-        // borderColor={'$accentBackground'}
-        // background={'$accentBackground'}
-      >
-        <YStack flex={1} justifyContent="flex-start" alignItems="center" gap="$4">
-          <Avatar circular size="$7" $xs={{size:"$5"}}>
+      <XStack space="$4" alignItems="center">
+        <Avatar circular size="$8" $xs={{ size: "$6" }}>
           <Avatar.Image
-              accessibilityLabel="Job Image"
-              src={imageSrc || "https://images.unsplash.com/photo-1548142813-c348350df52b?&w=150&h=150&dpr=2&q=80"}
-            />
-            <Avatar.Fallback backgroundColor="$blue10" />
-          </Avatar>
-        </YStack>
-        <YStack flex={2}>
-          <H2>{title}</H2>
-          <H4>{company}</H4>
-          <Text fontFamily={'$body'}>{location}</Text>
-          <Text>Your match score: {matchScore}</Text>
-          <Text>{salary} visibility 0 • month Just now</Text>
+            accessibilityLabel="Company Logo"
+            src={imageSrc || "https://freelogopng.com/images/all_img/1657952641google-logo-png-image.png"}
+          />
+          <Avatar.Fallback backgroundColor="$blue10" />
+        </Avatar>
+        <YStack flex={1} space="$2">
+          <Link href={`/job/${id}`}>
+            <Button unstyled>
+              <H3 color="$color" hoverStyle={{ color: '$blue10' }}>{title}</H3>
+            </Button>
+          </Link>
+          <Link href={`/company/${company}`}>
+            <Button unstyled>
+              <H5 color="$color" hoverStyle={{ color: '$blue10' }}>{company}</H5>
+            </Button>
+          </Link>
         </YStack>
       </XStack>
+      <YStack space="$2" marginTop="$4">
+        <Paragraph color="$color11">{location}</Paragraph>
+        <Paragraph color="$color11">Match score: <Text color="$blue10" fontWeight="bold">{matchScore}%</Text></Paragraph>
+        <Paragraph color="$color11">{salary} • Just now</Paragraph>
+      </YStack>
     </Card>
   )
 }
