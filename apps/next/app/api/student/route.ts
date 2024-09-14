@@ -10,9 +10,3 @@ export const GET=async(req:NextRequest)=>{
 
 }
 
-export const POST=async(req:NextRequest)=>{
-    await db.dbConnect();
-    const student= await req.json()
-    const created= await Student.create(student)
-    return  NextResponse.json(created, { status: 201 });
-}

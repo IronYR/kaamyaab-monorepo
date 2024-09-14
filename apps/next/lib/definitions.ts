@@ -36,3 +36,13 @@ export type User = DefaultUser & {
   email: string;
   role: 'student'|'recruiter'
 };
+
+import { NextRequest } from 'next/server';
+export interface CustomRequest extends NextRequest {
+  user?: {
+    
+    email: string;
+    id:string;
+    role:string;
+  };
+}
