@@ -33,7 +33,7 @@ export const POST = async (req: NextRequest) => {
                 role:"student"
               },
             },
-            secret,{expiresIn:"2m"}
+            secret,{expiresIn:"20m"}
         );
         return NextResponse.json({ token:accessToken }, { status: 201 })
 

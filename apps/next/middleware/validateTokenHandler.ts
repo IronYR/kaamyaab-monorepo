@@ -1,14 +1,7 @@
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import { NextRequest, NextResponse } from 'next/server';
+import { CustomRequest } from 'lib/definitions';
 
-interface CustomRequest extends NextRequest {
-  user?: {
-    username: string;
-    email: string;
-    id: string;
-    role:string;
-  };
-}
 
 const validateTokenHandler = async (req: CustomRequest): Promise<NextResponse | undefined> => {
   try {
@@ -17,17 +10,27 @@ const validateTokenHandler = async (req: CustomRequest): Promise<NextResponse | 
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
       return NextResponse.json({ msg: 'Unauthorized' }, { status: 401 });
     }
+    else{
+      console.log("Found Token")
+    }
 
     // Extract token from header
     const userToken = authHeader.split(' ')[1];
     if (!userToken) {
       return NextResponse.json({ msg: 'Unauthorized' }, { status: 401 });
     }
+    else{
+      console.log(userToken)
+    }
 
     // Verify token and attach user data to the request
-    const decoded = jwt.verify(userToken, process.env.ACCESS_TOKEN_SECRET as string) as JwtPayload;
-    req.user = decoded.user as CustomRequest['user'];
+    const decoded = jwt.verify(userToken, process.env.JWT_SECRET as string) as JwtPayload;
+    
+    const user = decoded.user as CustomRequest['user'];
 
+    (req as CustomRequest).user=user
+    
+    
     // If verification is successful, continue
     return undefined; // Indicating success, proceed in the route handler
   } catch (err) {
