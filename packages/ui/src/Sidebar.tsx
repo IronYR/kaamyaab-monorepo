@@ -1,10 +1,10 @@
 import React from 'react'
-import { YStack, Text, Button, styled, useTheme } from 'tamagui'
-import { useRouter } from 'next/navigation'
+import { YStack, Text, styled, useTheme } from 'tamagui'
+import { useRouter, usePathname } from 'next/navigation'
 
 const SidebarContainer = styled(YStack, {
   width: '15%',
-  backgroundColor: '$background',
+  // backgroundColor: '$blue10',
   padding: '$4',
   height: '100vh',
   position: 'fixed',
@@ -13,10 +13,13 @@ const SidebarContainer = styled(YStack, {
   bottom: 0,
 })
 
-const SidebarItem = styled(Button, {
+const SidebarItem = styled(YStack, {
   marginBottom: '$2',
+  padding: '$2',
   borderRadius: '$2',
-  backgroundColor: '$backgroundSecondary',
+  cursor: 'pointer',
+  justifyContent: 'center',
+  alignItems: 'flex-start',
 })
 
 const SidebarText = styled(Text, {
@@ -24,30 +27,35 @@ const SidebarText = styled(Text, {
 })
 
 type SidebarProps = {
-  currentPath: string
   items: Array<{ label: string; path: string }>
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ currentPath, items }) => {
+const Sidebar: React.FC<SidebarProps> = ({ items }) => {
   const router = useRouter()
+  const pathname = usePathname()
   const theme = useTheme()
+
+  const isActive = (itemPath: string) => {
+    return pathname === itemPath || pathname.startsWith(`${itemPath}/`)
+  }
 
   return (
     <SidebarContainer>
       {items.map((item) => {
-        const isActive = currentPath === item.path
+        const active = isActive(item.path)
         return (
           <SidebarItem
             key={item.path}
             onPress={() => router.push(item.path)}
-            backgroundColor={isActive ? theme.backgroundActive : theme.backgroundSecondary}
+            backgroundColor={active ? '$blue8' : 'transparent'}
           >
-            <SidebarText
-              color={isActive ? theme.textActive : theme.text}
-              fontWeight={isActive ? 'bold' : 'normal'}
+            <Text
+              color={active ? theme.textActive : theme.textMuted}
+              fontWeight={active ? 'bold' : 'normal'}
+              fontSize="$6"
             >
               {item.label}
-            </SidebarText>
+            </Text>
           </SidebarItem>
         )
       })}
