@@ -17,7 +17,8 @@ export type Student = {
   
   export type Post = {
     _id:string,
-    content: string;
+    textContent: string;
+    mediaContent:string|null;
     user: string;
   };
   
@@ -45,4 +46,5 @@ export interface CustomRequest extends NextRequest {
     id:string;
     role:string;
   };
+  
 }

@@ -2,9 +2,13 @@ import mongoose, { Schema } from "mongoose";
 import {Post} from "../lib/definitions"
 const postSchema = new Schema<Post>({
   
-  content: {
+  textContent: {
     required: true,
     type: String,
+  },
+  mediaContent:{
+    required:false,
+    type:String,
   },
   user: {
     required: true,

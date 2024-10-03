@@ -1,6 +1,7 @@
 import db from "lib/mongo";
 import { NextRequest, NextResponse } from "next/server";
-import Student from "models/student"
+import Recruiter from "models/recruiter"
+import jwt from "jsonwebtoken";
 import validateTokenHandler from "middleware/validateTokenHandler";
 import { CustomRequest } from 'lib/definitions';
 
@@ -9,16 +10,16 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
     try {
       await db.dbConnect();
       const { id } = params;
-      const student = await Student.findById(id);
+      const recruiter = await Recruiter.findById(id);
   
-      if (!student) {
-        return NextResponse.json({ msg: "Student not found" }, { status: 404 });
+      if (!recruiter) {
+        return NextResponse.json({ msg: "Recruiter not found" }, { status: 404 });
       }
   
-      return NextResponse.json(student, { status: 200 });
+      return NextResponse.json(recruiter, { status: 200 });
     } catch (error) {
-      console.error("Error fetching student:", error);
-      return NextResponse.json({ msg: "Internal Server Error" }, { status: 500 });
+      console.error("Error fetching recruiter:", error);
+      return NextResponse.json({ msg: "Internal Server Error Dumbo" }, { status: 500 });
     }
   }
   
@@ -35,21 +36,20 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
     
     try {
       await db.dbConnect();
-      
       const body = await req.json();
   
-      const updatedStudent = await Student.findByIdAndUpdate(id, body, {
+      const updatedRecruiter = await Recruiter.findByIdAndUpdate(id, body, {
         new: true,
         runValidators: true,
       });
   
-      if (!updatedStudent) {
-        return NextResponse.json({ msg: "Student not found" }, { status: 404 });
+      if (!updatedRecruiter) {
+        return NextResponse.json({ msg: "Recruiter not found" }, { status: 404 });
       }
   
-      return NextResponse.json(updatedStudent, { status: 200 });
+      return NextResponse.json(updatedRecruiter, { status: 200 });
     } catch (error) {
-      console.error("Error updating student:", error);
+      console.error("Error updating recruiter:", error);
       return NextResponse.json({ msg: "Internal Server Error" }, { status: 500 });
     }
   }
@@ -68,16 +68,16 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
     try {
       await db.dbConnect();
       
-      const deletedStudent = await Student.findByIdAndDelete(id);
+      const deletedRecruiter = await Recruiter.findByIdAndDelete(id);
   
-      if (!deletedStudent) {
-        return NextResponse.json({ msg: "Student not found" }, { status: 404 });
+      if (!deletedRecruiter) {
+        return NextResponse.json({ msg: "Recruiter not found" }, { status: 404 });
       }
   
-      return NextResponse.json({ msg: "Student deleted successfully" }, { status: 200 });
+      return NextResponse.json({ msg: "Recruiter deleted successfully" }, { status: 200 });
     } catch (error) {
-      console.error("Error deleting student:", error);
-      return NextResponse.json({ msg: "Internal Server Error" }, { status: 500 });
+      console.error("Error deleting recruiter:", error);
+      return NextResponse.json({ msg: "Internal Server Error Doofus" }, { status: 500 });
     }
   }
   
