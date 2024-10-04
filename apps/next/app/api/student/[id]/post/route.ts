@@ -13,18 +13,26 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
     if ((req as CustomRequest)?.user?.role !== 'student') {
       return NextResponse.json({ msg: 'Not Authorized' }, { status: 401 })
     }
+    else{
+        console.log('student verified')
+    }
     const { id } = params
     if ((req as CustomRequest)?.user?.id !== id) {
       return NextResponse.json({ msg: 'Not Authorized' }, { status: 401 })
+    } else{
+        console.log('student authorized')
     }
 
-    const res = await uploadMedia(req)
+    const body = await req.json()
+    const res = await uploadMedia(body)
     if (res instanceof NextResponse) {
       console.log(`error senor ${res}`)
       return res
+    } else{
+        console.log('image uploaded')
     }
     const mediaContent = res as string | null
-    const { textContent } = await req.json()
+    const { textContent } = body
 
     if (!textContent) {
       return NextResponse.json({ msg: 'Havent entered textcontent' }, { status: 400 })
@@ -33,31 +41,25 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
     const user = id
 
     await db.dbConnect()
-
+    console.log("db connected")
     const newPost = await Post.create({
       textContent,
       mediaContent,
       user,
     })
+    console.log("success")
     return NextResponse.json({ msg: newPost }, { status: 201 })
   } catch (err) {
+    console.log(err)
     return NextResponse.json({ msg: err }, { status: 501 })
   }
 }
 
 export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
     try {
-      const validationResponse = await validateTokenHandler(req);
-      if (validationResponse) return validationResponse;
-  
-      if ((req as CustomRequest)?.user?.role !== 'student') {
-        return NextResponse.json({ msg: 'Not Authorized' }, { status: 401 });
-      }
-  
+    
       const { id } = params;
-      if ((req as CustomRequest)?.user?.id !== id) {
-        return NextResponse.json({ msg: 'Not Authorized' }, { status: 401 });
-      }
+    
   
       await db.dbConnect();
   

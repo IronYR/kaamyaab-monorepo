@@ -29,6 +29,7 @@ export async function GET() {
 
     const response = {
       user: user,
+      jwt:value
     };
 
     return new Response(JSON.stringify(response), {

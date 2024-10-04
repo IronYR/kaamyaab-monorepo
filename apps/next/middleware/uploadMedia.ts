@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
 import { v2 as cloudinary } from 'cloudinary';
-const uploadMedia = async (req: Request) => {
+const uploadMedia = async (body:any) => {
   try {
-    const body = await req.json();
+    
     const { mediaContent } = body;
     if (!mediaContent){
       return undefined

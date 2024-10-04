@@ -39,13 +39,14 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
         return NextResponse.json({ msg: 'Not Authorized' }, { status: 401 })
     }
 
-    const res = await uploadMedia(req)
+    const body=await req.json()
+    const res = await uploadMedia(body)
     if (res instanceof NextResponse) {
       console.log(`error senor ${res}`)
       return res
     }
     const mediaContent = res as string | null
-    const { textContent } = await req.json()
+    const { textContent } = await body
     
     if (!textContent) {
       return NextResponse.json({ msg: 'Content is required' }, { status: 400 })
