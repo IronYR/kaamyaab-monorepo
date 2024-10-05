@@ -17,15 +17,25 @@ export type Student = {
   
   export type Post = {
     _id:string,
-    content: string;
+    textContent: string;
+    mediaContent:string|null;
     user: string;
+    postedDate:Date;
   };
   
   export type JobListing = {
-    _id:string,
-    content: string;
+    _id: string;
+    title: string;
+    company: string;
+    location: string;
+    employmentType: "Full-time" | "Part-time" | "Contract" | "Temporary" | "Internship";
+    description: string;
+    salaryRange?: string;
+    requirements: string;
+    postedDate: Date;
     recruiter: string;
   };
+  
   
 import { DefaultUser } from "next-auth";
 
@@ -45,4 +55,5 @@ export interface CustomRequest extends NextRequest {
     id:string;
     role:string;
   };
+  
 }
