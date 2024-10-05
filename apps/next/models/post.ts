@@ -14,7 +14,10 @@ const postSchema = new Schema<Post>({
     required: true,
     type: String,
   },
-  
+  postedDate: {
+    type: Date,
+    default: Date.now,
+  }
 });
 
 export default mongoose.models.Post ?? mongoose.model("Post", postSchema);
