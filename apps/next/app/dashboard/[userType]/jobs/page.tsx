@@ -8,7 +8,7 @@ function JobsPage() {
   const params = useParams()
   const userType = params?.userType as string
   return (
-    <YStack f={1} jc="center" ai="center" p="$4">
+    <YStack f={1} p="$4">
       <H1>Explore Opportunities Tailored to You</H1>
       <JobScreen />
     </YStack>
