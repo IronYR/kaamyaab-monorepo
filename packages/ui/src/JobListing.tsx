@@ -13,16 +13,23 @@ export function JobListing({ job, isLoggedIn }) {
     router.back()
   }
 
+  const handleEditJob = () => {
+    // Implement the logic to edit the job
+    router.push(`/edit-job/${job.id}`)
+  }
+
+  const isRecruiterOwner = true
+  // && isLoggedIn && userType === 'recruiter' && recruiterId === job.recruiterId
+
   return (
     <ScrollView>
       <XStack flex={1} paddingHorizontal="$12">
         <YStack flex={1} />
         <YStack flex={2} space="$4" padding="$4" backgroundColor="$background">
-          {isLoggedIn && (
-            <Button onPress={handleBack} alignSelf="flex-start">
-              Back
-            </Button>
-          )}
+          <XStack justifyContent="space-between" alignItems="center">
+            {isLoggedIn && <Button onPress={handleBack}>Back</Button>}
+            {isRecruiterOwner && <Button onPress={handleEditJob}>Edit Job</Button>}
+          </XStack>
           <Image
             source={{
               uri: job.headerImage || 'https://s1.zerochan.net/Aoha.%28Twintail%29.600.2145423.jpg',
