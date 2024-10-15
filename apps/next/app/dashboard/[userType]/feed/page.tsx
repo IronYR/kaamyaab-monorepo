@@ -1,10 +1,11 @@
 'use client'
-import { Paragraph, View } from 'tamagui'
-
+import { View, H2 } from 'tamagui'
+import Feed from '@my/ui/src/Feed'
 export default function page() {
   return (
     <View>
-      <Paragraph>Hello</Paragraph>
+      <H2>Posts</H2>
+      <Feed />
     </View>
   )
 }

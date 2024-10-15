@@ -1,6 +1,6 @@
 'use client'
-import React from 'react'
-import { styled, YStack, XStack, Stack } from 'tamagui'
+import React, { useState } from 'react'
+import { styled, YStack, XStack, Stack, Popover, Button } from 'tamagui'
 import Sidebar from '@my/ui/src/Sidebar'
 import { usePathname, useParams } from 'next/navigation'
 import { getSidebarItemsForUserType } from '@my/ui/src/utils/sidebarItems'
@@ -33,6 +33,7 @@ const TopBar = styled(XStack, {
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const params = useParams()
   const userType = params.userType as string
+  const [open, setOpen] = useState(false)
 
   const sidebarItems = getSidebarItemsForUserType(userType)
 
@@ -43,7 +44,51 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
       </SidebarWrapper>
       <MainContainer>
         <TopBar>
-          <UserAvatar />
+          <Popover open={open} onOpenChange={setOpen} backgroundColor="$background">
+            <Popover.Trigger asChild>
+              <Button unstyled onPress={() => setOpen(true)}>
+                <UserAvatar />
+              </Button>
+            </Popover.Trigger>
+
+            <Popover.Content
+              padding="$4"
+              borderWidth={1}
+              borderColor="$borderColor"
+              enterStyle={{ y: -10, opacity: 0 }}
+              exitStyle={{ y: -10, opacity: 0 }}
+              elevate
+              animation="quick"
+              backgroundColor="$background" // Match the app's background color
+            >
+              <YStack space="$2">
+                <Button
+                  onPress={() => {
+                    console.log('Profile')
+                    setOpen(false)
+                  }}
+                >
+                  Profile
+                </Button>
+                <Button
+                  onPress={() => {
+                    console.log('Settings')
+                    setOpen(false)
+                  }}
+                >
+                  Settings
+                </Button>
+                <Button
+                  onPress={() => {
+                    console.log('Logout')
+                    setOpen(false)
+                  }}
+                >
+                  Log out
+                </Button>
+              </YStack>
+            </Popover.Content>
+          </Popover>
         </TopBar>
         {children}
       </MainContainer>
