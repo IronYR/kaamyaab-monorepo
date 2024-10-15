@@ -6,7 +6,10 @@ import StepTwo from '@my/ui/src/user-onboarding/Step2'
 import StepThree from '@my/ui/src/user-onboarding/Step3'
 import { Button } from 'tamagui'
 import { ProgressComponent } from '@my/ui/src/ProgressComponent'
+import { useRouter } from 'next/navigation'
+
 const Steps = () => {
+  const router = useRouter()
   const [step, setStep] = useState(0)
   const [formData, setFormData] = useState({
     name: '',
@@ -41,6 +44,28 @@ const Steps = () => {
       //   return <Review formData={formData} />
     }
   }
+
+  async function registerUser() {
+    try {
+      const response = await fetch(`/api/student/register`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+    
+      if (response.ok) {
+        router.push('/dashboard/student')
+      } else {
+         const errorData = await response.json();
+         throw new Error(errorData.message || 'Registration failed');
+      }
+    } catch (err) {
+      console.error('Error:', err.message || err);
+    }
+  }
   return (
     <View>
       <ProgressComponent progress={progress} />
@@ -48,7 +73,7 @@ const Steps = () => {
       <XStack gap="$5" justifyContent="space-between">
         {step > 0 && <Button onPress={prevStep}>Previous</Button>}
         {step < 3 && step != 2 && <Button onPress={nextStep}>Next</Button>}
-        {step == 2 && <Button onPress={nextStep}>Submit</Button>}
+        {step == 2 && <Button onPress={registerUser}>Submit</Button>}
       </XStack>
     </View>
   )
