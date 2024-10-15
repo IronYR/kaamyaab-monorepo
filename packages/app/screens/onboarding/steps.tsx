@@ -47,7 +47,8 @@ const Steps = () => {
       {renderStep()}
       <XStack gap="$5" justifyContent="space-between">
         {step > 0 && <Button onPress={prevStep}>Previous</Button>}
-        {step < 3 && <Button onPress={nextStep}>Next</Button>}
+        {step < 3 && step != 2 && <Button onPress={nextStep}>Next</Button>}
+        {step == 2 && <Button onPress={nextStep}>Submit</Button>}
       </XStack>
     </View>
   )
