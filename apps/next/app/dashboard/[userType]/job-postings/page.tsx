@@ -1,9 +1,10 @@
 'use client'
-import React from 'react'
+import React, { useState } from 'react'
 import { XStack, YStack, H1, Button, ScrollView } from 'tamagui'
 import { ChevronRight } from '@tamagui/lucide-icons'
 import { JobPostingCard } from '@my/ui/src/JobPostingCard'
 import { useRouter } from 'next/navigation'
+import { CreateJobPostingModal } from '@my/ui/src/CreateJobPostingModal'
 
 // Mock data for job postings
 const jobPostings = [
@@ -15,6 +16,7 @@ const jobPostings = [
 
 export default function RecruiterJobPostingsPage() {
   const router = useRouter()
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   const handleJobClick = (jobId: number) => {
     router.push(`/jobs/${jobId}`)
@@ -35,10 +37,18 @@ export default function RecruiterJobPostingsPage() {
   return (
     <ScrollView>
       <YStack padding="$4" space="$4">
-        <H1>Your Job Postings</H1>
-        <Button icon={<ChevronRight />} alignSelf="flex-start">
-          Create New Job Posting
-        </Button>
+        <XStack justifyContent="space-between">
+          <H1>Your Job Postings</H1>
+          <Button
+            icon={<ChevronRight />}
+            alignSelf="flex-start"
+            onPress={() => setIsModalOpen(true)}
+          >
+            Create New Job Posting
+          </Button>
+        </XStack>
+
+        <CreateJobPostingModal open={isModalOpen} onOpenChange={setIsModalOpen} />
         <XStack flexWrap="wrap" justifyContent="space-between">
           {jobPostings.map((job) => (
             <JobPostingCard
