@@ -72,7 +72,7 @@ const CustomSelect = ({ value, onValueChange, options }) => {
   )
 }
 
-export const CreateJobPostingModal = ({ open, onOpenChange }) => {
+export const CreateJobPostingModal = ({ open, onOpenChange, user, jwt }) => {
   const [jobData, setJobData] = useState({
     title: '',
     company: '',
@@ -83,11 +83,9 @@ export const CreateJobPostingModal = ({ open, onOpenChange }) => {
     requirements: '',
   })
 
-  const { user, jwt, loading, error } = useUserInfo()
+  // const { user, jwt, loading, error } = useUserInfo()
 
   const router = useRouter()
-  if (loading) return <div>Loading user info...</div>
-  if (error) return <div>Error: {error}</div>
 
   const handleInputChange = (name: string, value: string) => {
     setJobData((prev) => ({ ...prev, [name]: value }))

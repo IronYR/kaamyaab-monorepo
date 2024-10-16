@@ -1,22 +1,37 @@
 'use client'
-import React, { useState } from 'react'
-import { XStack, YStack, H1, Button, ScrollView } from 'tamagui'
+import React, { useState, useEffect } from 'react'
+import { XStack, YStack, H1, Button, ScrollView, Spinner } from 'tamagui'
 import { ChevronRight } from '@tamagui/lucide-icons'
 import { JobPostingCard } from '@my/ui/src/JobPostingCard'
 import { useRouter } from 'next/navigation'
 import { CreateJobPostingModal } from '@my/ui/src/CreateJobPostingModal'
-
-// Mock data for job postings
-const jobPostings = [
-  { id: 1, title: 'Senior React Developer', applicants: 12, date: '2023-04-01' },
-  { id: 2, title: 'UX Designer', applicants: 8, date: '2023-04-05' },
-  { id: 3, title: 'Product Manager', applicants: 15, date: '2023-04-10' },
-  // Add more mock data as needed
-]
+import useUserInfo from '@my/ui/hooks/useUserInfo'
 
 export default function RecruiterJobPostingsPage() {
   const router = useRouter()
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [jobPostings, setJobPostings] = useState([])
+  const { user, jwt, loading, error } = useUserInfo()
+
+  useEffect(() => {
+    if (user?.id) {
+      fetchJobPostings(user.id)
+    }
+  }, [user, isModalOpen])
+
+  const fetchJobPostings = async (recruiterId: string) => {
+    try {
+      const response = await fetch(`/api/recruiter/${recruiterId}/jobListing`)
+      if (!response.ok) {
+        throw new Error('Failed to fetch job postings')
+      }
+      const data = await response.json()
+      setJobPostings(data)
+    } catch (error) {
+      console.error('Error fetching job postings:', error)
+      // Handle error (e.g., show error message to user)
+    }
+  }
 
   const handleJobClick = (jobId: number) => {
     router.push(`/jobs/${jobId}`)
@@ -24,16 +39,18 @@ export default function RecruiterJobPostingsPage() {
 
   const handleShareJob = (jobId: number) => {
     // Implement share functionality
-    console.log(`Sharing job with ID: ${jobId}`)
+    navigator.clipboard.writeText('kaamyaab.pk/jobs/' + jobId)
+    alert(`Copied to clipboard ${jobId}`)
   }
 
   const handleEditJob = (jobId: number) => {
     // Implement edit functionality
-    console.log(`Editing job with ID: ${jobId}`)
+    alert(`Editing job with ID: ${jobId}`)
     // You might want to navigate to an edit page, for example:
     // router.push(`/job/${jobId}/edit`);
   }
 
+  if (error) return <div>Error: {error}</div>
   return (
     <ScrollView>
       <YStack padding="$4" space="$4">
@@ -47,12 +64,21 @@ export default function RecruiterJobPostingsPage() {
             Create New Job Posting
           </Button>
         </XStack>
-
-        <CreateJobPostingModal open={isModalOpen} onOpenChange={setIsModalOpen} />
+        {loading && (
+          <YStack f={1}>
+            <Spinner />
+          </YStack>
+        )}
+        <CreateJobPostingModal
+          open={isModalOpen}
+          onOpenChange={setIsModalOpen}
+          user={user}
+          jwt={jwt}
+        />
         <XStack flexWrap="wrap" justifyContent="space-between">
           {jobPostings.map((job) => (
             <JobPostingCard
-              key={job.id}
+              key={job._id}
               job={job}
               onJobClick={handleJobClick}
               onShareJob={handleShareJob}
