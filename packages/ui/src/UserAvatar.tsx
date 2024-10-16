@@ -9,7 +9,7 @@ const StyledAvatar = styled(Avatar, {
 const AvatarContainer = styled(XStack, {
   padding: '$2',
   borderRadius: '$full',
-  backgroundColor: '$background',
+  // backgroundColor: '$background',
 })
 
 const UserAvatar = () => {

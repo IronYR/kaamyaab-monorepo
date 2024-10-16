@@ -55,15 +55,14 @@ const Steps = () => {
         body: JSON.stringify(formData),
       })
 
-    
       if (response.ok) {
-        router.push('/dashboard/student')
+        router.push('/login/student')
       } else {
-         const errorData = await response.json();
-         throw new Error(errorData.message || 'Registration failed');
+        const errorData = await response.json()
+        throw new Error(errorData.message || 'Registration failed')
       }
     } catch (err) {
-      console.error('Error:', err.message || err);
+      console.error('Error:', err.message || err)
     }
   }
   return (

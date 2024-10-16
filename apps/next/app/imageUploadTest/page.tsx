@@ -1,75 +1,75 @@
-'use client';
-import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+'use client'
+import React, { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 
 const ImageUploadForm = () => {
-  const [file, setFile] = useState<File | null>(null);
-  const [textContent, setTextContent] = useState<string>('');
-  const [userId, setUserId] = useState<string | null>(null);
-  const [jwt,setJwt]=useState<string| null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
-  const router = useRouter();
+  const [file, setFile] = useState<File | null>(null)
+  const [textContent, setTextContent] = useState<string>('')
+  const [userId, setUserId] = useState<string | null>(null)
+  const [jwt, setJwt] = useState<string | null>(null)
+  const [error, setError] = useState<string | null>(null)
+  const [loading, setLoading] = useState<boolean>(false)
+  const router = useRouter()
 
   // Fetch user data from the cookie
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const res = await fetch('/api/auth/cookie');
-        const data = await res.json();
+        const res = await fetch('/api/auth/cookie')
+        const data = await res.json()
 
         if (res.ok) {
-          setJwt(data.jwt);
-          setUserId(data.user?.user?.id); // Set user ID from cookie
+          setJwt(data.jwt)
+          setUserId(data.user?.user?.id) // Set user ID from cookie
           console.log(userId)
         } else {
-          setError('Unauthorized. Please login.');
+          setError('Unauthorized. Please login.')
         }
       } catch (error) {
-        setError('Failed to fetch user data.');
+        setError('Failed to fetch user data.')
       }
-    };
+    }
 
-    fetchUserData();
-  }, []);
+    fetchUserData()
+  }, [])
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFile(event.target.files ? event.target.files[0] : null);
-  };
+    setFile(event.target.files ? event.target.files[0] : null)
+  }
 
   const toBase64 = (file: File) => {
     return new Promise<string | ArrayBuffer | null>((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = (error) => reject(error);
-    });
-  };
+      const reader = new FileReader()
+      reader.readAsDataURL(file)
+      reader.onload = () => resolve(reader.result)
+      reader.onerror = (error) => reject(error)
+    })
+  }
 
   const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
+    event.preventDefault()
 
     if (!file || !textContent) {
-      alert('Please select a file and enter some text.');
-      return;
+      alert('Please select a file and enter some text.')
+      return
     }
 
     if (!userId) {
-      alert('User not authenticated.');
-      return;
+      alert('User not authenticated.')
+      return
     }
 
     try {
-      setLoading(true);
+      setLoading(true)
 
       // Convert the file to base64
-      const base64File = await toBase64(file);
+      const base64File = await toBase64(file)
 
       // Create the body with base64 image and text content
       const data = {
         mediaContent: base64File, // base64 encoded image
-        textContent:textContent,
-      };
+        textContent: textContent,
+      }
 
       // Send the request to the post creation API
       console.log(data)
@@ -77,28 +77,28 @@ const ImageUploadForm = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization':`Bearer ${jwt}`
+          Authorization: `Bearer ${jwt}`,
         },
         body: JSON.stringify(data),
-      });
+      })
 
-      const result = await response.json();
+      const result = await response.json()
 
       if (response.ok) {
-        alert('Post created successfully!');
+        alert('Post created successfully!')
         // Optionally, navigate to another page or reset the form
-        setFile(null);
-        setTextContent('');
-        router.push('/dashboard');
+        setFile(null)
+        setTextContent('')
+        router.push('/dashboard')
       } else {
-        setError(result.msg || 'Failed to create post.');
+        setError(result.msg || 'Failed to create post.')
       }
     } catch (error) {
-      setError('An error occurred while creating the post.');
+      setError('An error occurred while creating the post.')
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   return (
     <form onSubmit={handleSubmit}>
@@ -153,7 +153,7 @@ const ImageUploadForm = () => {
         }
       `}</style>
     </form>
-  );
-};
+  )
+}
 
-export default ImageUploadForm;
+export default ImageUploadForm
