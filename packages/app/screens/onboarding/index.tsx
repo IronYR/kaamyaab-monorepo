@@ -18,7 +18,7 @@ const Onboard = ({ children }) => {
           left: 20,
         }}
       >
-        <Text style={{ fontSize: 24, fontWeight: 'bold' }}>Student Onboarding</Text>
+        <Text style={{ fontSize: 24, fontWeight: 'bold' }}>Onboarding</Text>
       </View>
       <StepCard>{children}</StepCard>
     </View>

@@ -1,7 +1,6 @@
-
 import React, { useState } from 'react'
 import { Platform } from 'react-native'
-import {useRouter} from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import useUserInfo from '../hooks/useUserInfo'
 import {
   Dialog,
@@ -16,8 +15,6 @@ import {
   TextArea,
   Popover,
 } from 'tamagui'
-
-
 
 const employmentTypes = ['Full-time', 'Part-time', 'Contract', 'Temporary', 'Internship']
 
@@ -86,9 +83,9 @@ export const CreateJobPostingModal = ({ open, onOpenChange }) => {
     requirements: '',
   })
 
-  const { user, jwt,loading, error } = useUserInfo()
+  const { user, jwt, loading, error } = useUserInfo()
 
-  const router=useRouter()
+  const router = useRouter()
   if (loading) return <div>Loading user info...</div>
   if (error) return <div>Error: {error}</div>
 
@@ -98,12 +95,12 @@ export const CreateJobPostingModal = ({ open, onOpenChange }) => {
 
   const handleSubmit = async () => {
     try {
-      console.log('Job posting data:', jobData);
-  
+      console.log('Job posting data:', jobData)
+
       if (!user || !user.id || !jwt) {
-        throw new Error('User is not authenticated or missing required data.');
+        throw new Error('User is not authenticated or missing required data.')
       }
-  
+
       const response = await fetch(`/api/recruiter/${user.id}/jobListing`, {
         method: 'POST',
         headers: {
@@ -111,24 +108,22 @@ export const CreateJobPostingModal = ({ open, onOpenChange }) => {
           Authorization: `Bearer ${jwt}`,
         },
         body: JSON.stringify(jobData),
-      });
-  
+      })
+
       if (!response.ok) {
-        const errorData = await response.json();
-        console.error('Error uploading job description:', errorData);
-        throw new Error('Failed to upload job description.');
+        const errorData = await response.json()
+        console.error('Error uploading job description:', errorData)
+        throw new Error('Failed to upload job description.')
       }
-  
+
       // Redirect to the dashboard upon successful submission
-      router.push('/dashboard/recruiter');
-      onOpenChange(false); // Close the modal or component
-  
+      router.push('/dashboard/recruiter/job-postings')
+      onOpenChange(false) // Close the modal or component
     } catch (error) {
-      console.error('Error in handleSubmit:', error instanceof Error ? error.message : error);
-      alert('An error occurred while submitting the job description. Please try again.');
+      console.error('Error in handleSubmit:', error instanceof Error ? error.message : error)
+      alert('An error occurred while submitting the job description. Please try again.')
     }
-  };
-  
+  }
 
   return (
     <Dialog modal open={open} onOpenChange={onOpenChange}>

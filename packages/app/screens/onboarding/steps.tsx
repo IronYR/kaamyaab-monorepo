@@ -56,7 +56,7 @@ const Steps = () => {
       })
 
       if (response.ok) {
-        router.push('/login/student')
+        router.push('/login')
       } else {
         const errorData = await response.json()
         throw new Error(errorData.message || 'Registration failed')
