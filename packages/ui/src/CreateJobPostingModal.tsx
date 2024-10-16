@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { Platform } from 'react-native'
+import {useRouter} from 'next/navigation'
+
 import {
   Dialog,
   Button,
@@ -13,6 +15,8 @@ import {
   TextArea,
   Popover,
 } from 'tamagui'
+
+import useUserInfo from '../hooks/useUserInfo'
 
 const employmentTypes = ['Full-time', 'Part-time', 'Contract', 'Temporary', 'Internship']
 
@@ -81,15 +85,49 @@ export const CreateJobPostingModal = ({ open, onOpenChange }) => {
     requirements: '',
   })
 
+  const { user, loading, error } = useUserInfo()
+  const router=useRouter()
+  if (loading) return <div>Loading user info...</div>
+  if (error) return <div>Error: {error}</div>
+
   const handleInputChange = (name: string, value: string) => {
     setJobData((prev) => ({ ...prev, [name]: value }))
   }
 
-  const handleSubmit = () => {
-    // TODO: Implement job posting submission logic
-    console.log('Job posting data:', jobData)
-    onOpenChange(false)
+  const handleSubmit = async () => {
+  try {
+    console.log('Job posting data:', jobData);
+
+    if (!user || !user.jwt || !user.user?.user?.id) {
+      throw new Error('User is not authenticated or user data is missing');
+    }
+
+    const userId = user.user.user.id;
+    const jwt = user.jwt;
+
+    const response = await fetch(`/api/recruiter/${userId}/post`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${jwt}`,
+      },
+      body: JSON.stringify(jobData),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error('Error uploading job description:', errorData);
+      throw new Error('Failed to upload job description');
+    }
+
+    router.push('/dashboard/recruiter');
+    onOpenChange(false);
+  } catch (error) {
+    console.error('Error in handleSubmit:', error instanceof Error ? error.message : error);
+    alert('An error occurred while submitting the job description. Please try again.');
   }
+};
+
 
   return (
     <Dialog modal open={open} onOpenChange={onOpenChange}>
