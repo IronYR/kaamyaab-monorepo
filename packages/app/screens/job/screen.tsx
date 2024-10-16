@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 
 // Define the JobListing type based on the schema
 type JobListing = {
-  id: string
+  _id: string
   title: string
   company: string
   location: string
@@ -31,6 +31,7 @@ export default function PostScreen() {
           throw new Error('Failed to fetch job listings')
         }
         const data = await response.json()
+        console.log(data.jobListings)
         setJobListings(data.jobListings)
       } catch (err) {
         setError('Error fetching job listings. Please try again later.')
@@ -70,8 +71,8 @@ export default function PostScreen() {
     >
       {jobListings.map((job) => (
         <JobCard
-          key={job.id}
-          id={job.id}
+          key={job._id}
+          id={job._id}
           title={job.title}
           company={job.company}
           location={job.location}

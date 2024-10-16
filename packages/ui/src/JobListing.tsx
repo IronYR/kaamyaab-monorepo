@@ -20,7 +20,7 @@ export function JobListing({ job, isLoggedIn }) {
 
   const isRecruiterOwner = true
   // && isLoggedIn && userType === 'recruiter' && recruiterId === job.recruiterId
-
+  const date = new Date(job.postedDate).toLocaleDateString()
   return (
     <ScrollView>
       <XStack flex={1} paddingHorizontal="$12">
@@ -54,25 +54,23 @@ export function JobListing({ job, isLoggedIn }) {
             </YStack>
           </XStack>
           <Paragraph>{job.description}</Paragraph>
-          <H3>Responsibilities:</H3>
+          <H3>Requirements:</H3>
           <YStack space="$2">
-            {job.responsibilities.map((resp, index) => (
+            {/* {job.responsibilities.map((resp, index) => (
               <Text key={index}>• {resp}</Text>
-            ))}
+            ))} */}
+            <Text>{job.requirements}</Text>
           </YStack>
           <H3>Job Details:</H3>
           <YStack space="$2">
-            <Text>Job Creation Date: {job.creationDate}</Text>
-            <Text>Recruitment Period: {job.recruitmentPeriod}</Text>
-            <Text>Hiring Manager: {job.hiringManager}</Text>
-            <Text>Recruitment Quota: {job.recruitmentQuota}</Text>
-            <Text>Job Type: {job.jobType}</Text>
-            <Text>Experience: {job.experience}</Text>
-            <Text>Salary: {job.salary}</Text>
+            <Text>Job Creation Date: {date}</Text>
+            <Text>Hiring Manager: {job.recruiter}</Text>
+            <Text>Job Type: {job.employmentType}</Text>
+            <Text>Salary: {job.salaryRange}</Text>
           </YStack>
           {isLoggedIn && (
             <YStack space="$2">
-              <Text>Last Updated: {job.lastUpdate}</Text>
+              <Text>Last Updated: {date}</Text>
             </YStack>
           )}
           <Button onPress={handleApply} theme="active">
