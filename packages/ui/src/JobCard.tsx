@@ -3,13 +3,13 @@ import { YStack, XStack, Avatar, Text, H3, H5, Card, Paragraph, Button } from '@
 import { Link } from 'solito/link'
 // import { useRouter } from 'solito/router'
 import { useRouter } from 'next/navigation'
-export default function JobCard({ id, title, company, location, matchScore, salary, imageSrc }) {
+export default function JobCard({ id, title, company, location, matchScore, salary, imageSrc, date }) {
   const router = useRouter()
 
   const handleJobClick = () => {
     router.push(`/jobs/${id}`)
   }
-
+  let d = new Date(date).toLocaleString()
   return (
     <Card
       animation="medium"
@@ -54,7 +54,7 @@ export default function JobCard({ id, title, company, location, matchScore, sala
             {matchScore}%
           </Text>
         </Paragraph>
-        <Paragraph color="$color11">{salary} • Just now</Paragraph>
+        <Paragraph color="$color11">{salary} • {d}</Paragraph>
       </YStack>
     </Card>
   )
