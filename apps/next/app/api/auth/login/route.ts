@@ -7,7 +7,7 @@ import bcrypt from 'bcryptjs'
 import { serialize } from 'cookie'
 
 export const POST = async (req: Request) => {
-  const maxTime = 60 * 20
+  const maxTime = 60 * 20*10
   try {
     await db.dbConnect()
     const { email, password } = await req.json()

@@ -27,10 +27,12 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
 
     // Parse the request body
     const body = await req.json();
+    console.log(body)
     const { title, company, location, employmentType, description, salaryRange, requirements } = body;
 
     // Validate required fields
     if (!title || !company || !location || !employmentType || !description || !requirements) {
+
       return NextResponse.json({ msg: 'Missing required fields' }, { status: 400 });
     }
 

@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 
 const useUserInfo = () => {
   const [user, setUser] = useState<any>(null);
+  const [jwt,setJwt]=useState<string>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -12,8 +13,9 @@ const useUserInfo = () => {
         const res = await fetch('/api/auth/cookie');
         if (!res.ok) throw new Error('Failed to fetch user info');
 
-        const { user }= await res.json();
-        setUser(user);
+        const data= await res.json();
+        setUser(data.user.user)
+        setJwt(data.jwt)
       } catch (err) {
         setError((err as Error).message);
       } finally {
@@ -24,7 +26,7 @@ const useUserInfo = () => {
     fetchUserInfo();
   }, []);
 
-  return { user, loading, error };
+  return { user,jwt, loading, error };
 };
 
 export default useUserInfo;

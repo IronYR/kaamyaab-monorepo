@@ -31,7 +31,7 @@ export async function GET() {
       user: user,
       jwt:value
     };
-
+    
     return new Response(JSON.stringify(response), {
       status: 200,
     });
