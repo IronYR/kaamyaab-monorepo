@@ -1,7 +1,8 @@
+
 import React, { useState } from 'react'
 import { Platform } from 'react-native'
 import {useRouter} from 'next/navigation'
-
+import useUserInfo from '../hooks/useUserInfo'
 import {
   Dialog,
   Button,
@@ -16,7 +17,7 @@ import {
   Popover,
 } from 'tamagui'
 
-import useUserInfo from 'apps/next/hooks/useUserInfo'
+
 
 const employmentTypes = ['Full-time', 'Part-time', 'Contract', 'Temporary', 'Internship']
 

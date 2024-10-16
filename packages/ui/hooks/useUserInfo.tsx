@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 
 const useUserInfo = () => {
   const [user, setUser] = useState<any>(null);
-  const [jwt,setJwt]=useState<string>(null);
+  const [jwt,setJwt]=useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 

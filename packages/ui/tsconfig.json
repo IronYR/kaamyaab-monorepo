@@ -4,11 +4,15 @@
     "**/*.ts",
     "**/*.tsx",
     "../config/src/tamagui.config.ts",
-    "../../apps/next/hooks/**/*" // Use this to include all files in the hooks directory
+    "../../apps/next/hooks/**/*"
   ],
   "compilerOptions": {
     "composite": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "paths": {
+      "apps/*": ["../../apps/*"]
+    }
   },
   "references": []
 }
