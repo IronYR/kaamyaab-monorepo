@@ -7,7 +7,7 @@ import bcrypt from 'bcryptjs'
 import { serialize } from 'cookie'
 
 export const POST = async (req: Request) => {
-  const maxTime = 60 * 20*10
+  const maxTime = 60 * 20 * 10
   try {
     await db.dbConnect()
     const { email, password } = await req.json()
@@ -53,7 +53,7 @@ export const POST = async (req: Request) => {
       path: '/',
     })
 
-    const res = { token: accessToken, serialize: serialized }
+    const res = { token: accessToken, serialize: serialized, role }
     return new Response(JSON.stringify(res), { status: 200, headers: { 'Set-Cookie': serialized } })
   } catch (err) {
     console.log('err')

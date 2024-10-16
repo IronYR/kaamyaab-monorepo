@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { YStack, Input, Button, Text, Form } from 'tamagui'
 import { Toast, useToastController, useToastState } from '@tamagui/toast'
-
+import useUserInfo from '@my/ui/hooks/useUserInfo'
 export default function LoginForm() {
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
@@ -30,7 +30,7 @@ export default function LoginForm() {
         // toast.show('Logged in successfully!', {
         //   type: 'success',
         // })
-        router.push('/dashboard/student/home')
+        router.push(`/dashboard/${data.role}/home`)
       } else {
         // toast.show(data.msg || 'Login failed', {
         //   type: 'error',
