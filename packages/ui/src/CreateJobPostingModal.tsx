@@ -16,7 +16,7 @@ import {
   Popover,
 } from 'tamagui'
 
-import useUserInfo from '../hooks/useUserInfo'
+import useUserInfo from 'apps/next/hooks/useUserInfo'
 
 const employmentTypes = ['Full-time', 'Part-time', 'Contract', 'Temporary', 'Internship']
 
