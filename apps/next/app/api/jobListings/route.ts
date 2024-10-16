@@ -1,10 +1,6 @@
 import db from 'lib/mongo';
 import { NextRequest, NextResponse } from 'next/server';
 import JobListing from 'models/job-listing';
-import validateTokenHandler from 'middleware/validateTokenHandler';
-import { CustomRequest } from 'lib/definitions'; // Import your custom request definitions
-import jobListing from 'models/job-listing';
-
 export async function GET(req: NextRequest){
 
     try{
