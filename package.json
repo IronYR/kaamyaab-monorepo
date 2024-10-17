@@ -38,7 +38,7 @@
     "check-dependency-version-consistency": "^4.1.0",
     "cloudinary": "^2.5.0",
     "cookie": "^0.6.0",
-    "eslint": "^9.3.0",
+    "eslint": "^9.12.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.5.3",
     "next-auth": "^4.24.7",

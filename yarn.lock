@@ -9402,7 +9402,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-next@npm:^14.2.3":
+"eslint-config-next@npm:^14.2.15":
   version: 14.2.15
   resolution: "eslint-config-next@npm:14.2.15"
   dependencies:
@@ -9590,7 +9590,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:^9.3.0":
+"eslint@npm:^9.12.0":
   version: 9.12.0
   resolution: "eslint@npm:9.12.0"
   dependencies:
@@ -12428,7 +12428,7 @@ __metadata:
     check-dependency-version-consistency: "npm:^4.1.0"
     cloudinary: "npm:^2.5.0"
     cookie: "npm:^0.6.0"
-    eslint: "npm:^9.3.0"
+    eslint: "npm:^9.12.0"
     jsonwebtoken: "npm:^9.0.2"
     mongoose: "npm:^8.5.3"
     next-auth: "npm:^4.24.7"
@@ -13660,7 +13660,7 @@ __metadata:
     "@tamagui/next-theme": "npm:^1.115.5"
     "@types/node": "npm:^20.14.1"
     app: "npm:0.0.0"
-    eslint-config-next: "npm:^14.2.3"
+    eslint-config-next: "npm:^14.2.15"
     next: "npm:^14.2.3"
     next-compose-plugins: "npm:^2.2.1"
     next-transpile-modules: "npm:^10.0.1"
