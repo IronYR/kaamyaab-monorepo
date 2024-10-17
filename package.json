@@ -30,6 +30,10 @@
   "dependencies": {
     "@babel/runtime": "^7.24.6",
     "@manypkg/cli": "^0.21.4",
+    "@types/bcryptjs": "^2",
+    "@types/cookie": "^0",
+    "@types/jsonwebtoken": "^9",
+    "@types/multer": "^1",
     "axios": "^1.7.7",
     "bcryptjs": "^2.4.3",
     "check-dependency-version-consistency": "^4.1.0",
@@ -42,14 +46,9 @@
     "next-auth": "^4.24.7",
     "node-gyp": "^10.1.0",
     "prettier": "^3.2.5",
+    "tamagui": "^1.115.5",
     "turbo": "^1.13.3",
     "typescript": "^5.4.5"
   },
-  "packageManager": "yarn@4.5.0",
-  "devDependencies": {
-    "@types/bcryptjs": "^2",
-    "@types/cookie": "^0",
-    "@types/jsonwebtoken": "^9",
-    "@types/multer": "^1"
-  }
+  "packageManager": "yarn@4.5.0"
 }
